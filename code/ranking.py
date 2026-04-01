@@ -1,3 +1,8 @@
+"""
+PageRank-based package popularity ranking for PURLdb.
+Part of GSoC proposal prototype.
+"""
+
 from packagedb.models import Package
 from packageurl import PackageURL
 
