@@ -2,64 +2,69 @@
 
 ## 1. Introduction
 
-This proposal aims to implement a dependency-based popularity ranking system for packages in PURLdb.
+This proposal aims to implement a dependency-based popularity ranking system for software packages in PURLdb.
 
-Modern software ecosystems contain millions of packages, but not all packages are equally important. Existing metrics such as download counts or GitHub stars do not fully capture real-world usage.
+Modern software ecosystems contain millions of packages, but their importance varies significantly. Common metrics such as download counts or GitHub stars do not fully reflect real-world usage or ecosystem impact.
 
-This project proposes a graph-based approach, where package importance is derived from dependency relationships using a PageRank-style algorithm.
+This project proposes a graph-based approach in which package importance is derived from dependency relationships using a PageRank-style algorithm. Packages that are widely depended upon by others are assigned higher importance scores, capturing their role within the ecosystem.
 
 ---
 
 ## 2. Current Work
 
-I have already implemented a working prototype of this system.
+A working prototype of the proposed system has already been implemented.
 
-The implementation includes:
+The current implementation includes:
 
 * Construction of a dependency graph using package relationships
 * A PageRank-style algorithm to compute importance scores
 * Normalization of scores for consistent comparison
-* Storage of results in the database (`rank_score`)
+* Storage of computed scores in the database (`rank_score`)
 * A REST API endpoint (`/top-packages/`) to expose ranked results
-* Support for query-based limiting
+* Support for query-based result limiting
 
-Example result:
+The prototype demonstrates that:
 
-* Highly depended-upon packages receive higher scores
-* Less connected packages receive lower scores
+* Packages with high dependency centrality receive higher scores
+* Less connected or isolated packages receive lower scores
 
-This prototype demonstrates the feasibility of dependency-based ranking within PURLdb.
+This validates the feasibility of dependency-based ranking within PURLdb.
 
 ---
 
 ## 3. Proposed Work
 
-Building upon the current prototype, the project will focus on improving ranking quality and integrating additional signals.
+Building on the existing prototype, the project will focus on improving ranking quality, robustness, and integration within PURLdb.
 
 ### 3.1 Improved Graph Construction
 
 * Ensure accurate dependency resolution across ecosystems
-* Handle missing or incomplete dependency data
+* Handle missing, incomplete, or inconsistent dependency data
+* Optimize graph building for large-scale datasets
 
 ### 3.2 Ranking Enhancements
 
-* Introduce weighting for dependencies (e.g., direct vs transitive)
-* Improve handling of dangling nodes
+* Introduce weighted edges (e.g., direct vs transitive dependencies)
+* Improve handling of dangling nodes and sparse graphs
+* Explore convergence optimizations for scalability
 
-### 3.3 Freshness Signal
+### 3.3 Freshness and Activity Signals
 
-* Incorporate package activity (e.g., recent releases)
-* Apply decay to outdated or inactive packages
+* Incorporate package activity (e.g., recent releases or updates)
+* Apply decay functions to reduce scores of inactive packages
+* Combine structural importance with temporal relevance
 
-### 3.4 API Improvements
+### 3.4 API Enhancements
 
-* Extend API to support filtering and pagination
+* Extend API to support filtering, pagination, and sorting
 * Provide richer metadata in responses
+* Ensure efficient query performance
 
-### 3.5 Evaluation
+### 3.5 Evaluation and Validation
 
-* Validate ranking quality on selected ecosystems
+* Evaluate ranking quality on selected ecosystems
 * Compare results with existing popularity indicators
+* Analyze ranking stability and interpretability
 
 ---
 
@@ -67,49 +72,61 @@ Building upon the current prototype, the project will focus on improving ranking
 
 ### Community Bonding Period
 
-* Study PURLdb architecture and data models
-* Refine current prototype based on mentor feedback
+* Study PURLdb architecture, data models, and APIs
+* Review existing prototype with mentors and incorporate feedback
+* Finalize design decisions for graph construction and ranking
 
 ### Phase 1 (Weeks 1–4)
 
 * Improve dependency graph construction
-* Optimize PageRank computation
-* Ensure scalability for large datasets
+* Optimize PageRank computation for scalability
+* Validate correctness on sample datasets
 
 ### Phase 2 (Weeks 5–8)
 
 * Implement ranking enhancements (weights, improvements)
-* Add freshness-based scoring
+* Integrate freshness and activity-based scoring
+* Begin performance optimization
 
 ### Phase 3 (Weeks 9–12)
 
-* Extend API functionality
-* Perform evaluation and testing
-* Prepare documentation
+* Extend API functionality and improve usability
+* Conduct evaluation and benchmarking
+* Finalize documentation and testing
 
 ---
 
 ## 5. Deliverables
 
 * Dependency-based ranking system integrated into PURLdb
-* Improved PageRank algorithm with enhancements
-* API endpoint for accessing ranked packages
+* Enhanced PageRank algorithm with weighting and freshness signals
+* API endpoints for accessing ranked packages
 * Documentation and usage examples
+* Evaluation results and performance analysis
 
 ---
 
 ## 6. Why Me
 
-I have already implemented a working prototype of the ranking system, including graph construction, ranking computation, and API exposure.
+I have already developed a working prototype of this system, including graph construction, ranking computation, and API exposure.
 
-This demonstrates my ability to understand the problem and contribute effectively to PURLdb.
+This demonstrates my ability to understand the problem, design a solution, and implement it within the PURLdb ecosystem.
 
-I am comfortable working with Python, Django, and graph-based algorithms, and I am motivated to further improve this system.
+I am comfortable working with Python, Django, and graph-based algorithms, and I am motivated to refine this system into a robust and scalable solution.
 
 ---
 
-## 7. Conclusion
+## 7. Expected Impact
 
-This project introduces a scalable and meaningful approach to ranking software packages based on actual usage within ecosystems.
+* Enables identification of critical packages within ecosystems
+* Helps prioritize indexing and analysis in PURLdb
+* Provides a more accurate measure of real-world package importance
+* Establishes a foundation for advanced multi-signal ranking systems
 
-By leveraging dependency relationships, it provides a more accurate measure of package importance and lays the foundation for further enhancements in PURLdb.
+---
+
+## 8. Conclusion
+
+This project introduces a scalable and meaningful approach to ranking software packages based on their actual role within dependency networks.
+
+By leveraging dependency relationships, it provides a more accurate representation of ecosystem importance and enhances the analytical capabilities of PURLdb.
