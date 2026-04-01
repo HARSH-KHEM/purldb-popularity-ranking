@@ -1,3 +1,8 @@
+"""
+PageRank-based package popularity ranking for PURLdb.
+Part of GSoC proposal prototype.
+"""
+
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
